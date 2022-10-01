@@ -4,10 +4,10 @@ from threading import Thread
 
 
 class DosPy(object):
-    def __init__(self, host: str, port: int) -> None:
+    def __init__(self, host: str, port: int, threads_num: int = 100) -> None:
         self._host = host
         self._port = port
-        self._threads_num = 100
+        self._threads_num = threads_num
 
         self._default_protocol = socket.SOCK_DGRAM
 
