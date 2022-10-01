@@ -1,6 +1,6 @@
+import secrets
 import socket
 import time
-import secrets
 from threading import Thread
 
 
