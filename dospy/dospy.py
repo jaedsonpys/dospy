@@ -20,3 +20,14 @@ class DosPy(object):
 
         conn_check.close()
         return end - start
+
+    def is_ready_to_connect(self) -> bool:
+        conn_check = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        try:
+            conn_check.connect((self._host, self._port))
+        except OSError:
+            return False
+        else:
+            conn_check.close()
+            return True
