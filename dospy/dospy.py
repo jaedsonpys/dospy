@@ -62,7 +62,6 @@ class DosPy(object):
     def attack(self) -> bool:
         for __ in range(self._threads_num):
             th = Thread(target=self._attack_thread)
-            th.setDaemon(True)
             th.start()
 
         return True
