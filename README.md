@@ -6,6 +6,16 @@ The greater the number of data sent, the *greater chance* the host will go down.
 
 > **We are NOT responsible** for attacks made on servers, the script created is for teaching and learning purposes!
 
+## How to use
+
+To get started, clone the official repository into a directory. Then, enter the project root and run the command below:
+
+```
+python3 dospy-run.py
+```
+
+This will launch the interactive interface in the console, from there you can use `DoSPy`.
+
 ## License
 
 ```
