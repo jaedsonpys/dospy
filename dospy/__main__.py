@@ -43,12 +43,12 @@ def main():
 
     if result in ('y', 's'):
         try:
-            print('\n\033[1;32m- Starting attack...', end=' ')
+            print('\n\033[32m- Starting attack...', end=' ')
             dospy.attack()
             print('OK!\033[m')
-            print('\033[1;32m- DoSPy is running...\033[m')
+            print('\033[32m- DoSPy is running...\033[m')
         except KeyboardInterrupt:
-            print('\033[31mFAILED\033[m')
+            print('\033[1;31mFAILED\033[m')
             print('\033[31m- Attack canceled by user\033[m')
             dospy.stop_attack()
     else:
