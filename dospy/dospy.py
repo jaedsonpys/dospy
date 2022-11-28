@@ -69,16 +69,3 @@ class DosPy(object):
 
     def stop_attack(self) -> None:
         self._stop_thread = True
-
-
-if __name__ == '__main__':
-    dos = DosPy('192.168.0.1', 9000, threads_num=100, bytes_num=50000)
-    print(f'Normal response time: {dos.check_connection_ms()}')
-
-    print('Start attack...')
-    dos.attack()
-    print('Started.\n')
-
-    while True:
-        print(f'Current response time: {dos.check_connection_ms()}')
-        time.sleep(1)
