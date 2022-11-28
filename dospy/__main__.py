@@ -2,7 +2,6 @@ import os
 import sys
 
 from .dospy import DosPy
-from .animate import Loader
 
 
 def main():
@@ -43,13 +42,14 @@ def main():
 
     if result in ('y', 's'):
         try:
-            print('\n\033[32m- Starting attack...', end=' ')
+            print('\n\033[32m- Starting attack...\033[m')
             dospy.attack()
-            print('OK!\033[m')
             print('\033[32m- DoSPy is running...\033[m')
+
+            while True:
+                pass
         except KeyboardInterrupt:
-            print('\033[1;31mFAILED\033[m')
-            print('\033[31m- Attack canceled by user\033[m')
+            print('\n\033[31m- Attack canceled by user\033[m')
             dospy.stop_attack()
     else:
         print('\n\033[31mCanceled by user!\033[m')
