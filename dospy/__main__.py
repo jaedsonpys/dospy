@@ -46,11 +46,11 @@ def main():
             print('\n\033[1;32m- Starting attack...', end=' ')
             dospy.attack()
             print('OK!\033[m')
-
-            loader = Loader('DoS is running...', '\nThank you.', 0.05).start()
+            print('\033[1;32m- DoSPy is running...\033[m')
         except KeyboardInterrupt:
-            loader.stop()
-            sys.exit(0)
+            print('\033[31mFAILED\033[m')
+            print('\033[31m- Attack canceled by user\033[m')
+            dospy.stop_attack()
     else:
         print('\n\033[31mCanceled by user!\033[m')
         sys.exit(0)
