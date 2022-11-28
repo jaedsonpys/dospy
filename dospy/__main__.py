@@ -23,7 +23,7 @@ def main():
         print('\033[32mOK\033[m')
         print(f'- \033[33mResponse time is {response_time:.4f}ms\033[m\n')
     else:
-        print('\033[31m- ERROR: Could not connect to specified host and port.\033[m')
+        print('- \033[31mERROR: Could not connect to specified host and port.\033[m')
         sys.exit(1)
 
     threads_num = input('dospy > Number of threads (default is 100) = ').strip()
@@ -42,14 +42,14 @@ def main():
 
     if result in ('y', 's'):
         try:
-            print('\n\033[32m- Starting attack...\033[m')
+            print('\n- \033[32mStarting attack...\033[m')
             dospy.attack()
-            print('\033[32m- DoSPy is running...\033[m')
+            print('- \033[32mDoSPy is running...\033[m')
 
             while True:
                 pass
         except KeyboardInterrupt:
-            print('\n\033[31m- Attack canceled by user\033[m')
+            print('\n- \033[31mAttack canceled by user\033[m')
             dospy.stop_attack()
     else:
         print('\n\033[31mCanceled by user!\033[m')
