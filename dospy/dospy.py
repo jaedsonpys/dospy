@@ -45,7 +45,10 @@ class DosPy(object):
             address = (self._host, self._port)
 
             while self._stop_thread is False:
-                sock.sendto(self._bytes_num, address)
+                try:
+                    sock.sendto(self._bytes_num, address)
+                except OSError:
+                    pass
         elif self._default_protocol == socket.SOCK_STREAM:
             address = (self._host, self._port)
 
