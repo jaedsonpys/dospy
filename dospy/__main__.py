@@ -15,17 +15,6 @@ def main():
 
     dospy = DosPy(host, port)
 
-    print('\n- \033[33mChecking host availability...', end=' ')
-    result = dospy.is_ready_to_connect()
-
-    if result:
-        response_time = dospy.check_connection_ms()
-        print('\033[32mOK\033[m')
-        print(f'- \033[33mResponse time is {response_time:.4f}ms\033[m\n')
-    else:
-        print('- \033[31mERROR: Could not connect to specified host and port.\033[m')
-        sys.exit(1)
-
     threads_num = input('dospy > Number of threads (default is 100) = ').strip()
     bytes_num = input('dospy > Number of bytes (default is 1000)  = ').strip()
 
